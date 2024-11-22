@@ -30,7 +30,7 @@ class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = ('data', 'title',
-                 )
+                  )
 
 
 class PerevalSerializer(serializers.ModelSerializer):
@@ -43,8 +43,8 @@ class PerevalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pereval
         fields = ('id', 'beauty_title', 'title', 'other_titles', 'connect', 'add_data',
-                 'user', 'coords', 'level', 'images', 'status',
-                 )
+                  'user', 'coords', 'level', 'images', 'status',
+                  )
 
     def validate(self, data):
         if self.instance is not None:
