@@ -5,17 +5,13 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            'email', 'fam', 'name', 'otc', 'phone',
-        )
+        fields = '__all__'
 
 
 class CoordinatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coordinates
-        fields = (
-            'latitude', 'longitude', 'height'
-        )
+        fields='__all__'
 
 
 class LevelSerializer(serializers.ModelSerializer):

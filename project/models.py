@@ -53,5 +53,3 @@ class Images(models.Model):
     pereval = models.ForeignKey(Pereval, related_name='images', on_delete=models.CASCADE)
     data = models.ImageField(upload_to='pereval/', null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
-
-
