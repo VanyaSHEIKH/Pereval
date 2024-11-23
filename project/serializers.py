@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 class CoordinatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coordinates
-        fields='__all__'
+        fields = '__all__'
 
 
 class LevelSerializer(serializers.ModelSerializer):
@@ -23,6 +23,8 @@ class LevelSerializer(serializers.ModelSerializer):
 
 
 class ImagesSerializer(serializers.ModelSerializer):
+    data = serializers.ImageField()
+
     class Meta:
         model = Images
         fields = ('data', 'title',

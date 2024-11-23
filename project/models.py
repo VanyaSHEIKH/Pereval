@@ -6,12 +6,12 @@ class User(models.Model):
     fam = models.CharField(max_length=50, default='Иванов')
     name = models.CharField(max_length=50, default='Иван')
     otc = models.CharField(max_length=50, default='Иванович')
-    phone = models.CharField(max_length=11, default='8 999 999 99 99')
+    phone = models.CharField(max_length=17, default='8 999 999 99 99')
 
 
 class Coordinates(models.Model):
-    latitude = models.DecimalField(max_digits=15, decimal_places=5)
-    longitude = models.DecimalField(max_digits=15, decimal_places=5)
+    latitude = models.DecimalField(max_digits=15, decimal_places=2)
+    longitude = models.DecimalField(max_digits=15, decimal_places=2)
     height = models.DecimalField(max_digits=15, decimal_places=2)
 
 
@@ -46,10 +46,10 @@ class Pereval(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     coords = models.ForeignKey(Coordinates, on_delete=models.CASCADE, related_name='coords')
     level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='level')
-    status = models.CharField(choices=STATUS_TYPES, default='new', max_length=8)
+    status = models.CharField(choices=STATUS_TYPES, default='new', max_length=15)
 
 
 class Images(models.Model):
     pereval = models.ForeignKey(Pereval, related_name='images', on_delete=models.CASCADE)
-    data = models.ImageField(upload_to='pereval/', null=True, blank=True)
+    data = models.ImageField(upload_to='media/pereval/', null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)

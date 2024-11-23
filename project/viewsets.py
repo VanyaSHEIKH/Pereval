@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework import permissions
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from .models import *
@@ -47,5 +48,3 @@ class PerevalViewset(viewsets.ModelViewSet):
             "message": serializer.errors,
             "id": None,
         }, status=status.HTTP_400_BAD_REQUEST)
-
-
