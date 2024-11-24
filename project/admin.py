@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+admin.site.register(User)
+admin.site.register(Level)
+admin.site.register(Coordinates)
+admin.site.register(Images)
+admin.site.register(Pereval)

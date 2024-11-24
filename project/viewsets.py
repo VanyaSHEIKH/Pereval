@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework import permissions
@@ -48,3 +49,5 @@ class PerevalViewset(viewsets.ModelViewSet):
             "message": serializer.errors,
             "id": None,
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
