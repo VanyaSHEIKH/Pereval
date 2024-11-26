@@ -50,4 +50,38 @@ class PerevalViewset(viewsets.ModelViewSet):
             "id": None,
         }, status=status.HTTP_400_BAD_REQUEST)
 
+    def partial_update(self, request, *args, **kwargs):
+        pereval = self.get_object()
 
+        if pereval.status == "new":
+            # Список полей, которые нельзя изменять
+            protected_fields = ['name', 'email', 'phone']
+
+            # Проверяем, не пытается ли пользователь изменить защищенные поля
+            for field in protected_fields:
+                if field in request.data:
+                    return Response({
+                        "state": "0",
+                        "message": f"Поле '{field}' не может быть изменено."
+                    }, status=status.HTTP_403_FORBIDDEN)
+
+            # Если все проверки пройдены, создаем сериализатор
+            serializer = PerevalSerializer(pereval, data=request.data, partial=True)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response({
+                    "state": "1",
+                    "message": "Запись успешно изменена",
+                }, status=status.HTTP_200_OK)
+
+            return Response({
+                "state": "0",
+                "message": serializer.errors,
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        else:
+            return Response({
+                "state": "0",
+                "message": f"Отклонено. Причина: {pereval.get_status_display()}",
+            }, status=status.HTTP_403_FORBIDDEN)

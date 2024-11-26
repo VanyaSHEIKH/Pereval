@@ -64,7 +64,7 @@ class PerevalSerializer(serializers.ModelSerializer):
             title = image.pop('title')
             img = decode_binary_string_to_image_file(pereval.id, title, data)
             img_path = f'{settings.SITE_URL}/{img.name}'
-            Images.objects.create(data=img_path,pereval=pereval, title=title)
+            Images.objects.create(data=img_path, pereval=pereval, title=title)
 
         return pereval
 
