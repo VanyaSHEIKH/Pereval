@@ -22,7 +22,7 @@ class Coordinates(models.Model):
 
 
 class Level(models.Model):
-    #"А" русская
+    # "А" русская
     LEVEL = (
         ('1А', '1А'),
         ('2А', '2А'),
@@ -39,6 +39,7 @@ class Level(models.Model):
 
     def __str__(self):
         return f'зима: {self.winter}, лето: {self.summer}, осень: {self.autumn}, весна: {self.spring}'
+
 
 class Pereval(models.Model):
     STATUS_TYPES = (
@@ -66,5 +67,3 @@ class Images(models.Model):
     pereval = models.ForeignKey(Pereval, related_name='images', on_delete=models.CASCADE)
     data = models.ImageField(upload_to=get_path_upload_images, null=True, blank=True)
     title = models.CharField(max_length=255, null=True, blank=True)
-
-
