@@ -1,9 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, serializers
 from rest_framework import permissions
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from .models import *
@@ -52,36 +51,31 @@ class PerevalViewset(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         pereval = self.get_object()
-
         if pereval.status == "new":
-            # Список полей, которые нельзя изменять
-            protected_fields = ['name', 'email', 'phone']
-
-            # Проверяем, не пытается ли пользователь изменить защищенные поля
-            for field in protected_fields:
-                if field in request.data:
-                    return Response({
-                        "state": "0",
-                        "message": f"Поле '{field}' не может быть изменено."
-                    }, status=status.HTTP_403_FORBIDDEN)
-
-            # Если все проверки пройдены, создаем сериализатор
             serializer = PerevalSerializer(pereval, data=request.data, partial=True)
-
             if serializer.is_valid():
                 serializer.save()
                 return Response({
                     "state": "1",
-                    "message": "Запись успешно изменена",
-                }, status=status.HTTP_200_OK)
+                    "massage": "Запись изменена",
+                })
 
-            return Response({
-                "state": "0",
-                "message": serializer.errors,
-            }, status=status.HTTP_400_BAD_REQUEST)
-
+            else:
+                return Response({
+                    "state": "0",
+                    "massage": serializer.errors,
+                })
         else:
             return Response({
                 "state": "0",
-                "message": f"Отклонено. Причина: {pereval.get_status_display()}",
-            }, status=status.HTTP_403_FORBIDDEN)
+                "massage": f"Отклонено. Причина {pereval.get_status_display()} ",
+            })
+
+    # def update(self, request, *args, **kwargs):
+    #     partial = kwargs.pop('partial', False)
+    #     instance = self.get_object()  # Получаем объект по pk из URL
+    #     serializer = self.get_serializer(instance, data=request.data, partial=partial)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_update(serializer)
+    #
+    #     return Response(serializer.data)
