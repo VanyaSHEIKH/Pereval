@@ -145,16 +145,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SITE_URL = 'http://127.0.0.1:8000/'
 
-
-# SPECTACULAR_SETTINGS = {
-#     'TITLE': 'Django5 Test Swagger API',
-#     'DESCRIPTION': 'Django5 Test Swagger API description',
-#     'VERSION': '1.0.0',
-#     'SERVE_INCLUDE_SCHEMA': False,
-#     # OTHER SETTINGS
-# }
