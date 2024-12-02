@@ -6,13 +6,17 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'email', 'fam', 'name', 'otc', 'phone',
+        )
 
 
 class CoordinatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coordinates
-        fields = '__all__'
+        fields = (
+            'latitude', 'longitude', 'height',
+        )
 
 
 class LevelSerializer(serializers.ModelSerializer):
@@ -28,8 +32,9 @@ class ImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Images
-        fields = ('data', 'title',
-                  )
+        fields = (
+            'data', 'title',
+        )
 
 
 class PerevalSerializer(WritableNestedModelSerializer):
@@ -46,27 +51,11 @@ class PerevalSerializer(WritableNestedModelSerializer):
                   )
         # read_only_fields = ['status']
 
-    # def validate(self, data):
-    #     if self.instance is not None:
-    #         instance_user = self.instance.user
-    #         data_user = data.get("user")
-    #         validating_user_field = [
-    #             instance_user.fam != data_user['fam'],
-    #             instance_user.name != data_user['name'],
-    #             instance_user.otc != data_user['otc'],
-    #             instance_user.phone != data_user['phone'],
-    #             instance_user.email != data_user['email'],
-    #         ]
-    #         if data_user is not None and any(validating_user_field):
-    #             raise serializers.ValidationError({"Error": "Запрещено изменять данные пользователя"})
-    #     return data
-
     def validate(self, data):
         if self.instance is not None:
             instance_user = self.instance.user
             data_user = data.get("user")
 
-            # Проверяем, что data_user не None
             if data_user is not None:
                 validating_user_field = [
                     instance_user.fam != data_user.get('fam'),
@@ -76,12 +65,9 @@ class PerevalSerializer(WritableNestedModelSerializer):
                     instance_user.email != data_user.get('email'),
                 ]
 
-                # Проверяем, если есть изменения в полях пользователя
                 if any(validating_user_field):
                     raise serializers.ValidationError({"Error": "Запрещено изменять данные пользователя"})
             else:
-                # Если data_user равно None, возможно, вы хотите обработать это как ошибку
                 raise serializers.ValidationError({"Error": "Данные пользователя отсутствуют"})
 
         return data
-
