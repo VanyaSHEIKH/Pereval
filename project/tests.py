@@ -204,7 +204,7 @@ class PerevalSerializerTestCase(TestCase):
     def test_check(self):
         serializer_data = PerevalSerializer(self.pereval1).data
         expected_data = {
-            "id": 1,
+            "id": 8,
             "beauty_title": "test1pereval",
             "title": "test1title",
             "other_titles": "test1other",
