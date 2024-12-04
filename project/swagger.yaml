@@ -1,0 +1,401 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Your API",
+    "description": "Test description",
+    "termsOfService": "https://www.google.com/policies/terms/",
+    "contact": {
+      "email": "contact@yourapi.local"
+    },
+    "license": {
+      "name": "BSD License"
+    },
+    "version": "v1"
+  },
+  "host": "127.0.0.1:8000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Basic": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "Basic": []
+    }
+  ],
+  "paths": {
+    "/SubmitData/": {
+      "get": {
+        "operationId": "SubmitData_list",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user__email",
+            "in": "query",
+            "description": "user__email",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Pereval"
+              }
+            }
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "post": {
+        "operationId": "SubmitData_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "parameters": []
+    },
+    "/SubmitData/{id}/": {
+      "get": {
+        "operationId": "SubmitData_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "put": {
+        "operationId": "SubmitData_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "patch": {
+        "operationId": "SubmitData_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Pereval"
+            }
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "delete": {
+        "operationId": "SubmitData_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "SubmitData"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this pereval.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "fam": {
+          "title": "Fam",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "otc": {
+          "title": "Otc",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 17,
+          "minLength": 1
+        }
+      }
+    },
+    "Coordinates": {
+      "required": [
+        "latitude",
+        "longitude",
+        "height"
+      ],
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "title": "Latitude",
+          "type": "string",
+          "format": "decimal"
+        },
+        "longitude": {
+          "title": "Longitude",
+          "type": "string",
+          "format": "decimal"
+        },
+        "height": {
+          "title": "Height",
+          "type": "string",
+          "format": "decimal"
+        }
+      }
+    },
+    "Level": {
+      "type": "object",
+      "properties": {
+        "winter": {
+          "title": "Winter",
+          "type": "string",
+          "enum": [
+            "1А",
+            "2А",
+            "3А",
+            "1B",
+            "2B",
+            "3B",
+            "3B*"
+          ],
+          "x-nullable": true
+        },
+        "summer": {
+          "title": "Summer",
+          "type": "string",
+          "enum": [
+            "1А",
+            "2А",
+            "3А",
+            "1B",
+            "2B",
+            "3B",
+            "3B*"
+          ],
+          "x-nullable": true
+        },
+        "autumn": {
+          "title": "Autumn",
+          "type": "string",
+          "enum": [
+            "1А",
+            "2А",
+            "3А",
+            "1B",
+            "2B",
+            "3B",
+            "3B*"
+          ],
+          "x-nullable": true
+        },
+        "spring": {
+          "title": "Spring",
+          "type": "string",
+          "enum": [
+            "1А",
+            "2А",
+            "3А",
+            "1B",
+            "2B",
+            "3B",
+            "3B*"
+          ],
+          "x-nullable": true
+        }
+      }
+    },
+    "Images": {
+      "required": [
+        "data"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 255,
+          "x-nullable": true
+        }
+      }
+    },
+    "Pereval": {
+      "required": [
+        "title",
+        "user",
+        "coords",
+        "level",
+        "images"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "beauty_title": {
+          "title": "Beauty title",
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        },
+        "other_titles": {
+          "title": "Other titles",
+          "type": "string",
+          "maxLength": 255,
+          "x-nullable": true
+        },
+        "connect": {
+          "title": "Connect",
+          "type": "string",
+          "maxLength": 255,
+          "x-nullable": true
+        },
+        "add_data": {
+          "title": "Add data",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "coords": {
+          "$ref": "#/definitions/Coordinates"
+        },
+        "level": {
+          "$ref": "#/definitions/Level"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Images"
+          }
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected",
+            "new"
+          ]
+        }
+      }
+    }
+  }
+}
